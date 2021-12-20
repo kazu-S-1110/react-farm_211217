@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useAppSelector } from './app/hooks';
+import { Auth } from './components/Auth';
+import { Todo } from './components/Todo';
 import { selectCsrfState } from './slices/appSlice';
 import { CsrfToken } from './types/types';
 
@@ -18,7 +21,18 @@ function App() {
     getCsrfToken();
     // csrfの値が変化がある度にgetCsrfTokenが発火するようにする
   }, [csrf]);
-  return <div></div>;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Auth />
+        </Route>
+        <Route exact path="/todo">
+          <Todo />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
