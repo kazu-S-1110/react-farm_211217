@@ -37,4 +37,7 @@ export const appSlice = createSlice({
 
 export const { setEditedTask, resetEditedTask, toggleCsrfState } =
   appSlice.actions;
+
+export const selectTask = (state: RootState) => state.app.editedTask;
+export const selectCsrfState = (state: RootState) => state.app.csrfTokenExp;
 export default appSlice.reducer;
