@@ -43,7 +43,7 @@ export const useMutateAuth = () => {
   );
 
   const logoutMutation = useMutation(
-    async (user: User) =>
+    async () =>
       await axios.post(
         `${process.env.REACT_APP_API_URL}/logout`,
         {},
