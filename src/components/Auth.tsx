@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { VFC } from 'react';
 import { useProcessAuth } from '../hooks/useProcessAuth';
 import { BadgeCheckIcon, RefreshIcon } from '@heroicons/react/solid';
 
@@ -29,7 +29,8 @@ export const Auth: VFC = () => {
       <div className="flex items-center">
         <BadgeCheckIcon className="h-8 w-8 mr-2 text-blue-500" />
         <span className="text-center text-3xl font-extrabold">
-          FARM Stack web app (FastAPI + React + MongoDB)
+          FARM Stack web app <br />
+          (FastAPI + React + MongoDB)
         </span>
       </div>
       <h2 className="my-6">{isLogin ? 'Login' : 'Create a new account'}</h2>
