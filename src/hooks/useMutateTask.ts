@@ -73,4 +73,22 @@ export const useMutateTask = () => {
       },
     }
   );
+  const deleteTaskMutation = useMutation(
+    (id: string) =>
+      axios.delete(`${process.env.REACT_APP_API_URL}/todo/${id}`, {
+        withCredentials: true,
+      }),
+    {
+      onSuccess: (res, variables) => {
+        const previousTodos = queryClient.getQueryData<Task[]>('tasks');
+        if (previousTodos) {
+          queryClient.setQueryData<Task[]>(
+            'tasks',
+            previousTodos.filter((task) => task.id !== variables)
+          );
+        }
+        dispatch(resetEditedTask());
+      },
+    }
+  );
 };
