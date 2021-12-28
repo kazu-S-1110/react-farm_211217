@@ -89,6 +89,22 @@ export const useMutateTask = () => {
         }
         dispatch(resetEditedTask());
       },
+      onError: (err: any) => {
+        alert(`${err.response.data.detail}\n${err.message}`);
+        if (
+          err.response.data.detail === 'The JWT has expired' ||
+          err.response.data.detail === 'The CSRF token has expired.'
+        ) {
+          dispatch(toggleCsrfState());
+          dispatch(resetEditedTask());
+          history.push('/');
+        }
+      },
     }
   );
+  return {
+    createTaskMutation,
+    updateTaskMutation,
+    deleteTaskMutation,
+  };
 };
