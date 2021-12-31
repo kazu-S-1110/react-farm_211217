@@ -7,6 +7,7 @@ import { useQueryUser } from '../hooks/useQueryUser';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectTask, setEditedTask } from '../slices/appSlice';
 import { useProcessTask } from '../hooks/useProcessTask';
+import { TaskItem } from './TaskItem';
 
 export const Todo: VFC = () => {
   const { logout } = useProcessAuth();
@@ -56,6 +57,20 @@ export const Todo: VFC = () => {
           {editedTask.id === '' ? 'Create' : 'Update'}
         </button>
       </form>
+      {isLoadingTasks ? (
+        <p>Loading...</p>
+      ) : (
+        <ul className="my-5">
+          {dataTasks?.map((task) => (
+            <TaskItem
+              key={task.id}
+              id={task.id}
+              title={task.title}
+              description={task.description}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
