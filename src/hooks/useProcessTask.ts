@@ -1,6 +1,6 @@
 import { useMutateTask } from './useMutateTask';
 import { selectTask } from './../slices/appSlice';
-import React, { FormEvent } from 'react';
+import { FormEvent } from 'react';
 import { useAppSelector } from '../app/hooks';
 
 export const useProcessTask = () => {
