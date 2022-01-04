@@ -1,5 +1,5 @@
 import { LogoutIcon } from '@heroicons/react/outline';
-import { VFC } from 'react';
+import { useState, VFC } from 'react';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import { useProcessAuth } from '../hooks/useProcessAuth';
 import { useQueryTasks } from '../hooks/useQueryTasks';
@@ -8,11 +8,15 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectTask, setEditedTask } from '../slices/appSlice';
 import { useProcessTask } from '../hooks/useProcessTask';
 import { TaskItem } from './TaskItem';
+import { useQuerySingleTask } from '../hooks/useQuerySingleTask';
 
 export const Todo: VFC = () => {
+  const [id, setId] = useState('');
   const { logout } = useProcessAuth();
   const { data: dataUser } = useQueryUser();
   const { data: dataTasks, isLoading: isLoadingTasks } = useQueryTasks();
+  const { data: dataSingleTask, isLoading: isLoadingTask } =
+    useQuerySingleTask(id);
   const dispatch = useAppDispatch();
   const editedTask = useAppSelector(selectTask);
   const { processTask } = useProcessTask();
@@ -67,10 +71,15 @@ export const Todo: VFC = () => {
               id={task.id}
               title={task.title}
               description={task.description}
+              setId={setId}
             />
           ))}
         </ul>
       )}
+      <h2 className="mt-3 font-bold">Selected Task</h2>
+      {isLoadingTask && <p>Loading...</p>}
+      <p className="my-1 text-blue-500 text-sm">{dataSingleTask?.title}</p>
+      <p className="text-blue-500 text-sm">{dataSingleTask?.description}</p>
     </div>
   );
 };
